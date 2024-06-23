@@ -1,25 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Product } from '../product.model';
-import { productsArray } from '../products-data'
+import { ProductService } from '@catalog/product.service';
+import { CartService } from '@core/cart.service';
 
 @Component({
   selector: 'bot-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css'],
 })
-export class SearchComponent {
-  products: Product[] = [...productsArray];
+export class SearchComponent implements OnInit {
+  products: Product[] = [];
   searchTerm: string = '';
-  cart: Product[] = [];
 
-  constructor() { }
+  constructor(private productService: ProductService, private cartService: CartService) { }
 
   ngOnInit() {
-    this.products = [...productsArray];
+    this.products = this.productService.getProducts();
   }
 
   addToCart(product: Product) {
-    this.cart.push(product);
+    this.cartService.add(product);
   }
 
   filter(event: Event) {
