@@ -12,7 +12,9 @@ export class SearchComponent implements OnInit {
   products: Product[] = [];
   searchTerm: string = '';
 
-  constructor(private productService: ProductService, private cartService: CartService) { }
+  constructor(
+    private productService: ProductService,
+    private cartService: CartService) { }
 
   ngOnInit() {
     this.productService.getProducts().subscribe((products) => this.products = products);
